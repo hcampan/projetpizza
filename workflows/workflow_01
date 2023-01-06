@@ -1,0 +1,20 @@
+name: Déployer en prod
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: srv-ftp-mail
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        source: "."
+        destination: "pigeon@51.15.20.131:/var/www/html"
+        flags: "az"
+        exclude: ".git,node_modules"
+        delete: true
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
