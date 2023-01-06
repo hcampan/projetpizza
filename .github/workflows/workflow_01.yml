@@ -14,7 +14,7 @@ jobs:
       uses: burnett01/rsync-deployments@5.2.1
       with:
         source: "."
-        destination: "pigeon@51.15.20.131:/var/www/html"
+        destination: "pigeon@51.15.20.131:2226/var/www/html"
         flags: "az"
         exclude: ".git,node_modules"
         delete: true
