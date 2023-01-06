@@ -10,13 +10,13 @@ jobs:
     runs-on: srv-ftp-mail
     steps:
     - uses: actions/checkout@v2
-    - name: Deploy
+    - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
       with:
-        source: "."
-        destination: "pigeon@51.15.20.131:2226/var/www/html"
-        flags: "az"
-        exclude: ".git,node_modules"
-        delete: true
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        switches: -avzr --delete
+        path: src/
+        remote_path: /var/www/html/
+        remote_host: 51.15.20.131
+        remote_port: 2226
+        remote_user: pigeon
+        remote_key: ${{ secrets.DEPLOY_KEY }}
